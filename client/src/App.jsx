@@ -1,5 +1,4 @@
 
-import './App.css'
 import {useState} from "react";
 
 function App() {
@@ -7,15 +6,18 @@ const [form,setForm]= useState({
     amount:0,
     description:'',
     date:""});
-    async function handleSubmit(e){
+    async function handleSubmit(e) {
         e.preventDefault();
-        // console.log(form);
-        const res = await fetch('http://localhhost:4000/transaction',{
-            method:'POST',
-            body:form,
-        });
-        console.log(res);
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(form),
+        };
+        const res = await fetch('http://localhost:4000/transaction', requestOptions);
+        const data = await res.json();
+        console.log(data);
     }
+
 
     function handleInput(e){
         console.log(e.target.value);
