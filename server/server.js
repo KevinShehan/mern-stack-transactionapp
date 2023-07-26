@@ -5,6 +5,8 @@ import mongoose from "mongoose"
 import cors from "cors";
 import bodyParser from "body-parser";
 
+import Transaction from "./models/transaction.js";
+
 const PORT = 4000;
 const app = express();
 
@@ -15,9 +17,19 @@ app.get('/',(req, res)=>{
   res.send("Hello World");
 });
 
-app.post('/transaction',(req, res)=>{
+
+app.get('/transaction', async (req,res)=>{
+  const transaction =await Transaction.find({});
+  res.json(transaction);
+});
+
+app.post('/transaction', async (req, res)=>{
  const {amount,description, date}= req.body;
-  res.json({message:"Hello World"});
+ const transaction = new Transaction({
+     amount,description,date
+ });
+ await transaction.save();
+  res.json({message:"Success"});
 });
 
 app.listen(PORT,()=>{
