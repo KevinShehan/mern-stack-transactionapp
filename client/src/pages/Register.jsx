@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,13 +10,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-
-
 // TODO remove, this demo shouldn't need to reset the theme.
 
-
 export default function Register() {
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const form = {
@@ -27,11 +22,11 @@ export default function Register() {
             email: data.get('email'),
             password: data.get('password'),
         };
-       const res = fetch('http://localhost:4000/auth/register',{
-            method:'POST',
+        const res = await fetch('http://localhost:4000/auth/register', {
+            method: 'POST',
             body: JSON.stringify(form),
         });
-        if (res.ok){
+        if (res.ok) {
             console.log("Data Send");
         }
     };
@@ -116,8 +111,6 @@ export default function Register() {
                     </Grid>
                 </Box>
             </Box>
-
         </Container>
-
     );
 }
