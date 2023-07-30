@@ -21,12 +21,19 @@ export default function Register() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
+        const form = {
             firstName: data.get('firstName'),
             lastName: data.get('lastName'),
             email: data.get('email'),
             password: data.get('password'),
+        };
+       const res = fetch('http://localhost:4000/auth/register',{
+            method:'POST',
+            body: JSON.stringify(form),
         });
+        if (res.ok){
+            console.log("Data Send");
+        }
     };
 
     return (
